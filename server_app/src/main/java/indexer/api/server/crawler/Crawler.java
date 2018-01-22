@@ -1,20 +1,22 @@
 package indexer.api.server.crawler;
 
 import indexer.api.server.config.CrawlerProperties;
+import indexer.api.server.crawler.queue.Queue;
+import indexer.api.server.crawler.queue.QueueSet;
 import indexer.api.server.index.BaseIndexer;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,94 +25,95 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Crawler {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private CrawlerProperties crawlerProperties;
-	
+
 	@Autowired
 	private BaseIndexer indexer;
-	
-	private Map<String, Integer> links;
-	
+
+	private Queue<Link> linksQueue;
+
+	private Set<String> processedLinks;
+
 	public Crawler() {
 		logger.debug("Initializing Crawler");
-		links = new HashMap<String, Integer>();
-		processNextLink();
+		processedLinks = new HashSet<String>();
 	}
-	
-	public void addLink(String link, int deepLevel){
-		if(deepLevel < crawlerProperties.getMaximumDeepLevel()){
-			if(!links.containsKey(link)){
-				links.put(link, deepLevel);
-			}else{
-				int currentLevel = links.get(link);
-				if(currentLevel > deepLevel){
-					links.put(link, deepLevel);
-				}
-			}
-		}		
-	}
-	
-	public void processNextLink(){
-		while (!links.isEmpty()) {
-			String nextURL = links.keySet().iterator().next();
-			crawlURL(nextURL);
+
+	public void addLink(String link, int deepLevel) {
+		if (linksQueue == null) {
+			linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
+			linksQueue.add(new Link(link, deepLevel));
+			processNextLink();
+		} else {
+			linksQueue.add(new Link(link, deepLevel));
 		}
 	}
 
-	public void crawlURL(String url) {
-		int currentDeepLevel = links.get(url);		
-		String content = getContent(url);
-		indexer.addToIndex(content, url);
-		Set<String> allLinks = getAllLinksFrom(content);
-		addNewLinksToProcess(allLinks, currentDeepLevel);
+	public void processNextLink() {
+		try {
+			while (!linksQueue.isEmpty()) {
+				Link link = linksQueue.pop();
+				crawlURL(link);
+				processedLinks.add(link.getUrl());
+			}
+		} catch (QueueEmptyExcpetion e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void crawlURL(Link url) {
+		logger.debug("Processing URL: {}", url);	
+		logger.info("Processing URL: {}", url);
+		try {
+			int currentDeepLevel = url.getDeepLevel();
+			String content = getContent(url.getUrl());
+			indexer.addToIndex(content, url.getUrl());
+			Set<String> allLinks = getAllLinksFrom(url.getUrl());
+			addNewLinksToProcess(allLinks, currentDeepLevel+1);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 
 	public void addNewLinksToProcess(Set<String> subUrls, int currentDeepLevel) {
 		for (String newlink : subUrls) {
-			/*If the link is already in the map, update the deepLeve, if necessary*/
-			if(links.containsKey(newlink)){
-				int linkDeepLevel = links.get(newlink);
-				if(linkDeepLevel > currentDeepLevel+1){
-					links.put(newlink, currentDeepLevel+1);
-				}
+			if (!processedLinks.contains(newlink)) {
+				Link newLinkObject = new Link(newlink, currentDeepLevel);
+				logger.debug("Adding new link in order to process it: {}", newLinkObject);				
+				linksQueue.add(newLinkObject);
 			}else{
-				/*Add the new link with level increased in one*/
-				links.put(newlink, currentDeepLevel+1);
+				logger.debug("Ignoring URL: {}, it was already processed", newlink);
 			}
 		}
 	}
-	
-	public String getContent(String url){
+
+	public String getContent(String url) throws MalformedURLException, IOException {
 		String text = null;
-		try {
-			URLConnection connection = new URL("http://java.net").openConnection();
-			text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();
-		} catch (MalformedURLException e) {
-			logger.debug("Can't process link: " + url);
-			logger.error("URL Malformed: " + url);
-		} catch (IOException e) {
-			logger.debug("Can't process link: " + url);
-			logger.error("Message" + e.getMessage());
-		}
+		URLConnection connection = new URL(url).openConnection();
+		text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();		
 		return text;
-		
 	}
-	
-	public Set<String> getAllLinksFrom(String htmlContent){
-		Set<String> result = new LinkedHashSet<>();
-		Document doc = Jsoup.parse(htmlContent);
+
+	public Set<String> getAllLinksFrom(String url) throws IOException {
+		logger.info("Getting all links on: " + url);
+		Set<String> result = new HashSet<>();
+		Document doc = Jsoup.connect(url).get();
 		Elements links = doc.getElementsByTag("a");
-		Object[] array = links.toArray();
-		for (int i = 0; i < array.length; i++) {
-			result.add((String) array[i]);
+		for (Element element : links) {
+			result.add(element.absUrl("href"));
 		}
 		return result;
 	}
-	
-	public Map<String, Integer> getLinks() {
-		return links;
+
+	public Queue<Link> getLinksQueue() {
+		return linksQueue;
 	}
+	
 }

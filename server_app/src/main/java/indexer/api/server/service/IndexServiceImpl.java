@@ -25,7 +25,7 @@ public class IndexServiceImpl implements IndexService {
 		if(found != null){
 			updateWordIndex(url, pageTitle, matches, found);
 		}else{
-			Word newEntity = new Word();
+			Word newEntity = new Word(word);
 			newEntity.addWebPage(new WebPage(matches, url, pageTitle));
 			wordService.create(newEntity);
 		}

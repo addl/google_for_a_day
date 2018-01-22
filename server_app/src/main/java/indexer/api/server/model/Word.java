@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -30,6 +31,12 @@ public class Word implements Serializable {
 	private List<WebPage> webPages;
 
 	public Word() {
+		webPages = new LinkedList<WebPage>();
+	}
+	
+	public Word(String lexeme) {
+		this.lexeme = lexeme;
+		webPages = new LinkedList<WebPage>();
 	}
 
 	public long getId() {

@@ -2,6 +2,7 @@ package indexer.api.server.index;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class DatabaseIndexerTests {
 
 	@Autowired
 	private DatabaseIndexer indexer;
+	
+	@Before
+	public void setUp() throws Exception{
+		indexer.clearIndex();
+	}
 
 	@Test
 	public void processTextFillWordsDictionary() {
@@ -36,7 +42,7 @@ public class DatabaseIndexerTests {
 	public void testWordsDitionaryContains3TimeTheWord() {
 		String text = "Note that the text within the element is not returned, as it is not a direct child of the element.";
 		indexer.processText(text);
-		int expectedTheMatches = 3;
+		int expectedTheMatches = 6;
 		assertEquals(expectedTheMatches, Integer.parseInt(indexer.getWords().get("the").toString()));
 	}
 
