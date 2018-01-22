@@ -75,4 +75,10 @@ public class WebPageServiceImpl implements WebPageService {
 		return webPageRepository.findByUrlAndWord(url, word);
 	}
 
+	@Override
+	public Page<WebPage> findByWordOrderByMatches(Word word, Pageable page) {
+		logger.debug("Finding WebPage by Word: {}", word);
+		return webPageRepository.findByWordOrderByMatches(word, page);
+	}
+
 }

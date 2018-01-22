@@ -22,5 +22,7 @@ public interface WebPageService {
 	public Page<WebPage> findByURL(String url, Pageable page);
 	
 	public WebPage findByUrlAndWord(String url, Word word);
+	
+	public Page<WebPage> findByWordOrderByMatches(Word word, Pageable page);
 
 }

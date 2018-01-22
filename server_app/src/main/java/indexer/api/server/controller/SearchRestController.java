@@ -1,8 +1,8 @@
 package indexer.api.server.controller;
 
 import indexer.api.server.dto.IndexerResponseDTO;
+import indexer.api.server.exception.IndexerNotMatchesException;
 import indexer.api.server.index.BaseIndexer;
-import indexer.api.server.model.Word;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +21,14 @@ public class SearchRestController {
 	
 	@RequestMapping(value="/query", method=RequestMethod.GET)
 	public ResponseEntity<IndexerResponseDTO> executeSearch(@RequestParam("query") String query) {
-		Word found = (Word) indexer.search(query);
-		IndexerResponseDTO response = new IndexerResponseDTO(found, HttpStatus.OK, false);
+		IndexerResponseDTO response;
+		try {
+			response = new IndexerResponseDTO(indexer.search(query), HttpStatus.OK, false);
+		} catch (IndexerNotMatchesException e) {
+			response = new IndexerResponseDTO(null, HttpStatus.OK, false, e.getMessage(), "No explanation");
+		}
 		return new ResponseEntity<IndexerResponseDTO>(response, HttpStatus.OK);
 	}
 
 }
+

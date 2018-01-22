@@ -1,11 +1,14 @@
 package indexer.api.server.service;
 
+import indexer.api.server.exception.IndexerNotMatchesException;
 import indexer.api.server.model.WebPage;
 import indexer.api.server.model.Word;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +24,7 @@ public class IndexServiceImpl implements IndexService {
 	
 	@Override
 	public void createOrUpdateIndex(String word, String url, String pageTitle, int matches) {
+		word = word.toLowerCase();
 		Word found = wordService.findByLexeme(word);
 		if(found != null){
 			updateWordIndex(url, pageTitle, matches, found);
@@ -46,9 +50,13 @@ public class IndexServiceImpl implements IndexService {
 	}
 
 	@Override
-	public Word search(String query) {
-		logger.debug("Executing search by query: {}", query);
-		return wordService.findByLexeme(query);
+	public Page<WebPage> search(String query) throws IndexerNotMatchesException{
+		logger.debug("Executing search by query: {}", query.toLowerCase());
+		Word found = wordService.findByLexeme(query);
+		if(found != null){
+			throw new IndexerNotMatchesException("0 results for query " + query);
+		}
+		return webPageService.findByWordOrderByMatches(found, new PageRequest(1, 5));
 	}
 
 	@Override

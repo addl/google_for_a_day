@@ -1,11 +1,10 @@
 package indexer.api.server.index;
 
+import indexer.api.server.exception.IndexerNotMatchesException;
 import indexer.api.server.service.IndexService;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.jsoup.Jsoup;
@@ -73,7 +72,7 @@ public class DatabaseIndexer implements BaseIndexer {
 	}
 
 	@Override
-	public Object search(String query) {
+	public Object search(String query) throws IndexerNotMatchesException {
 		return indexService.search(query);
 	}
 
