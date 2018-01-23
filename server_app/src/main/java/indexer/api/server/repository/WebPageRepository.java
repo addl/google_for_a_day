@@ -13,6 +13,6 @@ public interface WebPageRepository extends PagingAndSortingRepository<WebPage, L
 	
 	public WebPage findByUrlAndWord(String url, Word word);
 	
-	public Page<WebPage> findByWordOrderByMatches(Word word, Pageable page);
+	public Page<WebPage> findByWordOrderByMatchesDesc(Word word, Pageable page);
 
 }

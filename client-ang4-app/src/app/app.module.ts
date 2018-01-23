@@ -12,6 +12,7 @@ import {SearchResultListComponent} from './search-result-list/search-result-list
 import {SearchItemResultComponent} from './search-item-result/search-item-result.component';
 import {SearchService} from "./services/search.service";
 import { SearchBoxComponent } from './search-box/search-box.component';
+import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes:Routes = [
   {path: 'search', component: SearchComponent},
@@ -34,6 +35,7 @@ const appRoutes:Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}

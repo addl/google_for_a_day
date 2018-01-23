@@ -1,12 +1,14 @@
 package indexer.api.server.index;
 
 import static org.junit.Assert.*;
+import indexer.api.server.exception.IndexerNotMatchesException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -47,9 +49,9 @@ public class DatabaseIndexerTests {
 	}
 
 	@Test
-	public void testIndexContentValuesInsertIntoDB() {
+	public void testIndexContentValuesInsertIntoDB() throws IndexerNotMatchesException {
 		indexer.addToIndex(htmlContent, url);
-		assertNotNull(indexer.search("the"));
+		assertNotNull(indexer.search("the", new PageRequest(0, 5)));
 	}
 
 }

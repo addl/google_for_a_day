@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,13 +51,13 @@ public class IndexServiceImpl implements IndexService {
 	}
 
 	@Override
-	public Page<WebPage> search(String query) throws IndexerNotMatchesException{
+	public Page<WebPage> search(String query, Pageable page) throws IndexerNotMatchesException{
 		logger.debug("Executing search by query: {}", query.toLowerCase());
 		Word found = wordService.findByLexeme(query);
-		if(found != null){
+		if(found == null){
 			throw new IndexerNotMatchesException("0 results for query " + query);
 		}
-		return webPageService.findByWordOrderByMatches(found, new PageRequest(1, 5));
+		return webPageService.findByWordOrderByMatches(found, page);
 	}
 
 	@Override

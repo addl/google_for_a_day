@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -72,8 +73,8 @@ public class DatabaseIndexer implements BaseIndexer {
 	}
 
 	@Override
-	public Object search(String query) throws IndexerNotMatchesException {
-		return indexService.search(query);
+	public Object search(String query, Pageable page) throws IndexerNotMatchesException {
+		return indexService.search(query, page);
 	}
 
 	@Override
