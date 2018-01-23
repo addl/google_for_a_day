@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DatabaseIndexer implements BaseIndexer {
+	
+	public static final String STATS_TOTAL_PAGES_KEY = "totalPages";
+	public static final String STATS_TOTAL_WORDS_KEY = "totalWords";
 
 	@Autowired
 	private IndexService indexService;
@@ -32,9 +35,31 @@ public class DatabaseIndexer implements BaseIndexer {
 		Document document = Jsoup.parse(htmlContent);
 		processOneElement(document.body());
 		String title = document.title();
+		String [] titleWords = title.split(" ");
+		for (String word : titleWords) {
+			indexService.createOrUpdateIndex(word.trim().toLowerCase(), url, title, 1);
+		}
 		for(String word : words.keySet()){
 			indexService.createOrUpdateIndex(word, url, title, words.get(word));
 		}
+	}
+	
+	@Override
+	public Object search(String query, Pageable page) throws IndexerNotMatchesException {
+		return indexService.search(query.toLowerCase(), page);
+	}
+
+	@Override
+	public void clearIndex() throws Exception {
+		indexService.clearDatabase();		
+	}
+	
+	@Override
+	public HashMap<String, Object> getStats() {
+		HashMap<String, Object> stats = new HashMap<String, Object>();
+		stats.put(STATS_TOTAL_PAGES_KEY, indexService.getTotalPages());
+		stats.put(STATS_TOTAL_WORDS_KEY, indexService.getTotalWords());
+		return stats;
 	}
 	
 	private void processOneElement(Element element){
@@ -70,16 +95,6 @@ public class DatabaseIndexer implements BaseIndexer {
 	
 	public Map<String, Integer> getWords() {
 		return words;
-	}
-
-	@Override
-	public Object search(String query, Pageable page) throws IndexerNotMatchesException {
-		return indexService.search(query, page);
-	}
-
-	@Override
-	public void clearIndex() throws Exception {
-		indexService.clearDatabase();		
 	}
 
 }

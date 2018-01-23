@@ -1,11 +1,14 @@
 package indexer.api.server.service;
 
+import java.util.List;
+
 import indexer.api.server.exception.IndexerEntityNotFoundException;
 import indexer.api.server.model.WebPage;
 import indexer.api.server.model.Word;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 public interface WebPageService {
 	
@@ -16,6 +19,10 @@ public interface WebPageService {
 	public void delete(Long id) throws IndexerEntityNotFoundException;
 	
 	public WebPage findOne(Long id) throws IndexerEntityNotFoundException;
+	
+	public int countByUrl(String url);
+	
+	public List<WebPage> findDistinctURLs();
 	
 	public Page<WebPage> findAll(Pageable page);
 	

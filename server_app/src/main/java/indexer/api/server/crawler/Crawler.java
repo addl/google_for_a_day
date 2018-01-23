@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -44,7 +43,7 @@ public class Crawler {
 	}
 
 	public void addLink(String link, int deepLevel) {
-		if (linksQueue == null) {
+		if (linksQueue == null || linksQueue.isEmpty()) {
 			linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
 			linksQueue.add(new Link(link, deepLevel));
 			processNextLink();
@@ -72,9 +71,11 @@ public class Crawler {
 		try {
 			int currentDeepLevel = url.getDeepLevel();
 			String content = getContent(url.getUrl());
-			indexer.addToIndex(content, url.getUrl());
-			Set<String> allLinks = getAllLinksFrom(url.getUrl());
-			addNewLinksToProcess(allLinks, currentDeepLevel+1);
+			if(content != null){
+				indexer.addToIndex(content, url.getUrl());
+				Set<String> allLinks = getAllLinksFrom(url.getUrl());
+				addNewLinksToProcess(allLinks, currentDeepLevel+1);
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -94,10 +95,15 @@ public class Crawler {
 		}
 	}
 
-	public String getContent(String url) throws MalformedURLException, IOException {
+	public String getContent(String url) throws MalformedURLException {
 		String text = null;
-		URLConnection connection = new URL(url).openConnection();
-		text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();		
+		URLConnection connection;
+		try {
+			connection = new URL(url).openConnection();
+			text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();		
+		} catch (IOException e) {
+			logger.info("Can't connect to: {}, Eception message is: {}", url, e.getMessage());
+		}		
 		return text;
 	}
 

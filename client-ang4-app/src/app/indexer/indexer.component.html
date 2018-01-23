@@ -1,3 +1,10 @@
-<p>
-  indexer works!
-</p>
+<div class="component" id="indexer_component">
+  <div id="link_input_box">
+    <app-url-input-box
+      (addNewLinkEvent)="addUrl($event)"
+      (clearIndexEvent)="clearIndex()">
+    </app-url-input-box>
+  </div>
+  <label>Indexed <strong>{{totalIndexedPages}}</strong> new pages and
+    <strong>{{totalIndexedWords}}</strong> words.</label>
+</div>

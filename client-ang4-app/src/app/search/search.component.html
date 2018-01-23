@@ -1,10 +1,11 @@
-<div id="search_box">
-  <app-search-box
-    (executeSearchEvent)="executeSearch($event)"></app-search-box>
-</div>
+<div class="component" id="search_component">
+  <div id="search_box">
+    <app-search-box
+      (executeSearchEvent)="executeSearch($event)"></app-search-box>
+  </div>
 
-<div id="search_result">
-  <app-search-result-list [results]="results">
-  </app-search-result-list>
+  <div id="search_result">
+    <app-search-result-list [results]="results">
+    </app-search-result-list>
+  </div>
 </div>
-

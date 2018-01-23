@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +63,18 @@ public class IndexServiceImpl implements IndexService {
 	public void clearDatabase() throws Exception {
 		logger.debug("Removing all entries on index");
 		wordService.removeAll();		
+	}
+
+	@Override
+	public int getTotalPages() {
+		logger.debug("Retrieving total Pages");
+		return webPageService.findDistinctURLs().size();
+	}
+
+	@Override
+	public int getTotalWords() {
+		logger.debug("Retrieving total words");
+		return wordService.count();
 	}
 
 }

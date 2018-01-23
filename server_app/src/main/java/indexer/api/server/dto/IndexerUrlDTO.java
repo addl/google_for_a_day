@@ -3,6 +3,10 @@ package indexer.api.server.dto;
 public class IndexerUrlDTO {
 	
 	private String url;
+	
+	public IndexerUrlDTO() {
+		
+	}
 
 	public IndexerUrlDTO(String url) {
 		this.url = url;

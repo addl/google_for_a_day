@@ -13,5 +13,9 @@ public interface IndexService {
 	public Page<WebPage> search(String query, Pageable page) throws IndexerNotMatchesException;
 	
 	public void clearDatabase() throws Exception;
+	
+	public int getTotalPages();
+	
+	public int getTotalWords();
 
 }

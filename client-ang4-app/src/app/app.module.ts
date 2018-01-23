@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http"
 import {RouterModule, Routes} from "@angular/router";
+import {HttpClientModule} from "@angular/common/http";
 
 import {AppComponent} from './app.component';
 import {SearchComponent} from './search/search.component';
@@ -10,9 +11,10 @@ import {IndexerComponent} from './indexer/indexer.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {SearchResultListComponent} from './search-result-list/search-result-list.component';
 import {SearchItemResultComponent} from './search-item-result/search-item-result.component';
+import {SearchBoxComponent} from './search-box/search-box.component';
 import {SearchService} from "./services/search.service";
-import { SearchBoxComponent } from './search-box/search-box.component';
-import {HttpClientModule} from "@angular/common/http";
+import {IndexService} from "./services/index.service";
+import { UrlInputBoxComponent } from './url-input-box/url-input-box.component';
 
 const appRoutes:Routes = [
   {path: 'search', component: SearchComponent},
@@ -29,7 +31,8 @@ const appRoutes:Routes = [
     PageNotFoundComponent,
     SearchResultListComponent,
     SearchItemResultComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    UrlInputBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ const appRoutes:Routes = [
       {enableTracing: true}
     )
   ],
-  providers: [SearchService],
+  providers: [SearchService, IndexService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

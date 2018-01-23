@@ -1,5 +1,7 @@
 package indexer.api.server.index;
 
+import java.util.HashMap;
+
 import org.springframework.data.domain.Pageable;
 
 import indexer.api.server.exception.IndexerNotMatchesException;
@@ -12,5 +14,7 @@ public interface BaseIndexer {
 	public Object search(String query, Pageable page) throws IndexerNotMatchesException;
 	
 	public void clearIndex() throws Exception;
+	
+	public HashMap<String, Object> getStats();
 
 }

@@ -55,6 +55,12 @@ public class WordServiceImpl implements WordService {
 		}
 		return found;
 	}
+	
+	@Override
+	public int count() {
+		logger.info("Counting Words");
+		return Integer.parseInt(String.valueOf(wordRepository.count()));
+	}
 
 	@Override
 	public Page<Word> findAll(Pageable page) {

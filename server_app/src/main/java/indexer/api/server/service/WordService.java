@@ -16,6 +16,8 @@ public interface WordService {
 	
 	public Word findOne(Long id) throws IndexerEntityNotFoundException;
 	
+	public int count();
+	
 	public Page<Word> findAll(Pageable page);
 	
 	public Word findByLexeme(String lexeme);

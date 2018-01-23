@@ -1,5 +1,7 @@
 package indexer.api.server.service;
 
+import java.util.List;
+
 import indexer.api.server.exception.IndexerEntityNotFoundException;
 import indexer.api.server.model.WebPage;
 import indexer.api.server.model.Word;
@@ -56,6 +58,12 @@ public class WebPageServiceImpl implements WebPageService {
 		}
 		return found;
 	}
+	
+	@Override
+	public int countByUrl(String url) {
+		logger.debug("Counting WebPages by URL: {}", url);
+		return Integer.parseInt(String.valueOf(webPageRepository.countByUrl(url)));
+	}
 
 	@Override
 	public Page<WebPage> findAll(Pageable page) {
@@ -80,5 +88,12 @@ public class WebPageServiceImpl implements WebPageService {
 		logger.debug("Finding WebPage by Word: {}", word);
 		return webPageRepository.findByWordOrderByMatchesDesc(word, page);
 	}
+
+	@Override
+	public List<WebPage> findDistinctURLs() {
+		logger.debug("Looking for distinct URLs");
+		return webPageRepository.findDistinctURLs();
+	}
+
 
 }
