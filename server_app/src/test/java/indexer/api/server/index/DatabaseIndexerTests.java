@@ -1,6 +1,11 @@
 package indexer.api.server.index;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import indexer.api.server.exception.IndexerNotMatchesException;
 
 import org.junit.Before;
@@ -28,24 +33,30 @@ public class DatabaseIndexerTests {
 	private DatabaseIndexer indexer;
 	
 	@Before
-	public void setUp() throws Exception{
+	public void setUp() throws Exception {
 		indexer.clearIndex();
 	}
 
 	@Test
 	public void processTextFillWordsDictionary() {
 		String text = "Note that the text within the element is not returned, as it is not a direct child of the element.";
-		indexer.processText(text);
+		Map<String, Integer> words = new HashMap<String, Integer>();
+		indexer.processText(text, words);
 		int expectedWordsSize = 16;
-		assertEquals(expectedWordsSize, indexer.getWords().size());
+		Set<String> keySet = words.keySet();
+		for (String string : keySet) {
+			System.out.println("***" + string);
+		}
+		assertEquals(expectedWordsSize, words.size());
 	}
 
 	@Test
 	public void testWordsDitionaryContains3TimeTheWord() {
 		String text = "Note that the text within the element is not returned, as it is not a direct child of the element.";
-		indexer.processText(text);
-		int expectedTheMatches = 6;
-		assertEquals(expectedTheMatches, Integer.parseInt(indexer.getWords().get("the").toString()));
+		Map<String, Integer> words = new HashMap<String, Integer>();
+		indexer.processText(text, words);
+		int expectedTheMatches = 3;
+		assertEquals(expectedTheMatches, Integer.parseInt(words.get("the").toString()));
 	}
 
 	@Test

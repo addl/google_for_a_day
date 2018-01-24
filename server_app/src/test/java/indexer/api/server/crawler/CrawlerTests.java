@@ -1,6 +1,7 @@
 package indexer.api.server.crawler;
 
 import static org.junit.Assert.*;
+import indexer.api.server.exception.UrlBadFormatException;
 import indexer.api.server.index.BaseIndexer;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class CrawlerTests {
 	}
 	
 	@Test
-	public void queueGetInitialized(){
+	public void queueGetInitialized() throws UrlBadFormatException{
 		crawler.addLink(rootUrl, 0);
 		assertNotNull(crawler.getLinksQueue());
 	}

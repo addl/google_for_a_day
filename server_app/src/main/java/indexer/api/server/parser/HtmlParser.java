@@ -1,4 +1,4 @@
-package indexer.api.server.parser;
+/*package indexer.api.server.parser;
 
 import java.util.List;
 
@@ -22,3 +22,4 @@ public class HtmlParser implements Parser{
 	}
 
 }
+*/

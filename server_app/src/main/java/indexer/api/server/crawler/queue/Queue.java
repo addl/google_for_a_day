@@ -6,6 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * @author lion
+ *
+ *{@link Queue} is an model that implement {@link BaseQueue} with a {@link List}
+ *
+ * @param <E> the generic type
+ */
 public abstract class Queue<E> implements BaseQueue<E> {
 	
 	protected List<E> queue;
@@ -14,11 +21,17 @@ public abstract class Queue<E> implements BaseQueue<E> {
 		queue = new LinkedList<E>();
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.BaseQueue#add(java.lang.Object)
+	 */
 	@Override
 	public void add(E element) {
 		queue.add(element);
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.BaseQueue#pop()
+	 */
 	@Override
 	public E pop() throws QueueEmptyExcpetion {
 		if(queue.isEmpty()){
@@ -29,6 +42,9 @@ public abstract class Queue<E> implements BaseQueue<E> {
 		return res;
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.BaseQueue#top()
+	 */
 	@Override
 	public E top() throws QueueEmptyExcpetion{
 		if(queue.isEmpty()){
@@ -37,6 +53,9 @@ public abstract class Queue<E> implements BaseQueue<E> {
 		return queue.get(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.BaseQueue#bottom()
+	 */
 	@Override
 	public E bottom() throws QueueEmptyExcpetion{
 		if(queue.isEmpty()){
@@ -46,6 +65,9 @@ public abstract class Queue<E> implements BaseQueue<E> {
 		return queue.get(lasPos);
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.BaseQueue#isEmpty()
+	 */
 	@Override
 	public boolean isEmpty() {
 		return queue.isEmpty();

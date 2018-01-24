@@ -2,8 +2,18 @@ package indexer.api.server.dto;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author lion
+ *
+ * This object will be used to server each request, 
+ * with the goal of serve a common response
+ */
 public class IndexerResponseDTO {
 	
+	/**
+	 * The real data returned by server,
+	 * it can be a list or any object
+	 */
 	private Object data;
     private HttpStatus status;
     private boolean error;

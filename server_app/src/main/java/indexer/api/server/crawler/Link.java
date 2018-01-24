@@ -1,9 +1,23 @@
 package indexer.api.server.crawler;
 
+
+/**
+ * @author lion
+ *
+ * A suitable class to create {@link Link} objects
+ */
 public class Link implements Comparable<Link> {
 
+	
+	/**
+	 * The link, starting with http(s)
+	 */
 	private String url;
 
+	/**
+	 * the deep level of that link, 
+	 * as the system establish taking account othe links
+	 */
 	private int deepLevel;
 
 	public Link(String url, int deepLevel) {

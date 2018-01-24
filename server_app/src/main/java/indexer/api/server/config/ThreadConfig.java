@@ -7,7 +7,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 
 /**
- * Created by Lion on 1/24/18.
+ * @author lion
+ * 
+ * Configuration to execute task threadsafe
  */
 @Configuration
 public class ThreadConfig {

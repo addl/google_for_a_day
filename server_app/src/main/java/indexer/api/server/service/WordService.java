@@ -6,6 +6,11 @@ import indexer.api.server.model.Word;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * @author lion
+ *
+ * A {@link Word} service that will use repository and expose only the needed functions
+ */
 public interface WordService {
 
 	public Word create(Word newEntity);

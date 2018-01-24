@@ -3,14 +3,28 @@ package indexer.api.server.crawler.queue;
 import indexer.api.server.crawler.Link;
 
 
+/**
+ * @author lion
+ *
+ * Specific Queue that use {@link Link} as object type, override some methods from {@link Queue}
+ */
 public class QueueSet extends Queue<Link> {
 	
+	/**
+	 * Maximum Level allowed, this att is take into account at add time
+	 */
 	private int maximumDeepLevel;
 	
 	public QueueSet(int maximumDeepLevel) {
 		this.maximumDeepLevel = maximumDeepLevel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.queue.Queue#add(java.lang.Object)
+	 * 
+	 * Add or Update a link in the queue, if the URL is found 
+	 * and the maximumDeepLevel is lower it will update the link object
+	 */
 	@Override
 	public void add(Link element) {
 		boolean found = false;
@@ -26,15 +40,22 @@ public class QueueSet extends Queue<Link> {
 				found = true;
 			}
 		}
+		/*If the Link is not found then add as new linkto be processed*/
 		if(!found & element.getDeepLevel() <= maximumDeepLevel){
 			super.add(element);
 		}
 	}
 	
+	/**
+	 * @return maximumDeepLevel
+	 */
 	public int getMaximumDeepLevel() {
 		return maximumDeepLevel;
 	}
 	
+	/**
+	 * @param maximumDeepLevel set the new maximumDeepLevel
+	 */
 	public void setMaximumDeepLevel(int maximumDeepLevel) {
 		this.maximumDeepLevel = maximumDeepLevel;
 	}

@@ -11,6 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author lion
+ *
+ * A custom implementation of {@link IndexService}
+ */
 @Service
 public class IndexServiceImpl implements IndexService {
 
@@ -22,6 +27,9 @@ public class IndexServiceImpl implements IndexService {
 	@Autowired
 	private WebPageService webPageService;
 	
+	/* (non-Javadoc)
+	 * @see indexer.api.server.service.IndexService#createOrUpdateIndex(java.lang.String, java.lang.String, java.lang.String, int)
+	 */
 	@Override
 	public void createOrUpdateIndex(String word, String url, String pageTitle, int matches) {
 		word = word.toLowerCase();
@@ -35,6 +43,13 @@ public class IndexServiceImpl implements IndexService {
 		}
 	}
 
+	/**
+	 * A parameterized method to get cleaner code
+	 * @param url
+	 * @param pageTitle
+	 * @param matches
+	 * @param found
+	 */
 	private void updateWordIndex(String url, String pageTitle, int matches, Word found) {
 		WebPage webPage = webPageService.findByUrlAndWord(url, found);
 		if(webPage != null){
@@ -49,6 +64,9 @@ public class IndexServiceImpl implements IndexService {
 		webPageService.create(webPage);
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.service.IndexService#search(java.lang.String, org.springframework.data.domain.Pageable)
+	 */
 	@Override
 	public Page<WebPage> search(String query, Pageable page) throws IndexerNotMatchesException{
 		logger.debug("Executing search by query: {}", query.toLowerCase());
@@ -59,18 +77,27 @@ public class IndexServiceImpl implements IndexService {
 		return webPageService.findByWordOrderByMatches(found, page);
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.service.IndexService#clearDatabase()
+	 */
 	@Override
 	public void clearDatabase() throws Exception {
 		logger.debug("Removing all entries on index");
 		wordService.removeAll();		
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.service.IndexService#getTotalPages()
+	 */
 	@Override
 	public int getTotalPages() {
 		logger.debug("Retrieving total Pages");
 		return webPageService.findDistinctURLs().size();
 	}
 
+	/* (non-Javadoc)
+	 * @see indexer.api.server.service.IndexService#getTotalWords()
+	 */
 	@Override
 	public int getTotalWords() {
 		logger.debug("Retrieving total words");

@@ -10,6 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+/**
+ * @author lion
+ * 
+ * The repository to {@link WebPage} entity
+ *
+ */
 public interface WebPageRepository extends PagingAndSortingRepository<WebPage, Long> {
 	
 	public Page<WebPage> findByUrl(String url, Pageable page);

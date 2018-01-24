@@ -1,15 +1,19 @@
 package indexer.api.server.service;
 
-import java.util.List;
-
 import indexer.api.server.exception.IndexerEntityNotFoundException;
 import indexer.api.server.model.WebPage;
 import indexer.api.server.model.Word;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 
+/**
+ * @author lion
+ *
+ * A {@link WebPage} service that will use repository and expose only the needed functions
+ */
 public interface WebPageService {
 	
 	public WebPage create(WebPage newEntity);
