@@ -1,11 +1,19 @@
-<div class="component" id="search_component">
-  <div id="search_box">
-    <app-search-box
-      (executeSearchEvent)="executeSearch($event)"></app-search-box>
-  </div>
+<div class="ui two column centered grid" id="search_component">
+  <div class="row">
+    <div class="column">
 
-  <div id="search_result">
-    <app-search-result-list [results]="results">
-    </app-search-result-list>
+      <app-search-box (executeSearchEvent)="executeSearch($event)"></app-search-box>
+
+    </div>
+  </div>
+  <div class="left aligned two column row" *ngIf="results">
+    <div class="column">
+      <label>Found {{results.length}} result(s)</label>
+    </div>
+  </div>
+  <div class="left aligned two column row">
+    <div class="column">
+      <app-search-result-list [results]="results"></app-search-result-list>
+    </div>
   </div>
 </div>

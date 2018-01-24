@@ -1,12 +1,23 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="ui container">
-  <nav>
-    <a routerLink="/search" routerLinkActive="active">Search</a>
-    <a routerLink="/index" routerLinkActive="active">Index</a>
-  </nav>
-  <div id="content">
-    <div class="container">
-      <router-outlet></router-outlet>
+  <div id="root_container">
+    <div class="ui grid">
+      <!-- A row for the navigation elemnts-->
+      <div class="row">
+        <div class="ui one column centered grid">
+          <div class="column">
+            <nav class="ui center aligned breadcrumb">
+              <a class="section" routerLink="/search" routerLinkActive="active">Search</a>
+              <i class="divider">|</i>
+              <a class="section" routerLink="/index" routerLinkActive="active">Index</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!--A row for the components-->
+      <div class="row">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>

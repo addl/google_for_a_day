@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IndexService} from "../services/index.service";
-import {AppStats} from "../interfaces/app-stats";
+import {IntervalObservable} from "rxjs/observable/IntervalObservable";
+import {TimerObservable} from "rxjs/observable/TimerObservable";
 
 @Component({
   selector: 'app-indexer',
@@ -17,9 +18,20 @@ export class IndexerComponent implements OnInit {
   }
 
   ngOnInit() {
-    let stats:AppStats = this.indexService.getGeneralStats();
-    this.totalIndexedPages = stats.totalIndexedPages;
-    this.totalIndexedWords= stats.totalIndexedWords;
+    this.updateAppStats();
+    TimerObservable.create(0, 5000).subscribe(()=> {
+      this.updateAppStats();
+    });
+  }
+
+  private updateAppStats() {
+    this.indexService.getGeneralStats().subscribe(response => {
+      console.log(response);
+      this.totalIndexedPages = response.data.totalPages;
+      this.totalIndexedWords = response.data.totalWords;
+    }, error => {
+      console.log(`Error on service subscription, error is: ${error.message}`)
+    });
   }
 
   addUrl(url:string):void {

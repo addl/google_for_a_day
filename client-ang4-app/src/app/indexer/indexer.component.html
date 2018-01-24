@@ -1,10 +1,16 @@
-<div class="component" id="indexer_component">
-  <div id="link_input_box">
-    <app-url-input-box
-      (addNewLinkEvent)="addUrl($event)"
-      (clearIndexEvent)="clearIndex()">
-    </app-url-input-box>
+<div class="ui two column centered grid" id="indexer_component">
+  <div class="row">
+    <div class="column">
+      <app-url-input-box
+        (addNewLinkEvent)="addUrl($event)"
+        (clearIndexEvent)="clearIndex()">
+      </app-url-input-box>
+    </div>
   </div>
-  <label>Indexed <strong>{{totalIndexedPages}}</strong> new pages and
-    <strong>{{totalIndexedWords}}</strong> words.</label>
+  <div class="left aligned two column row">
+    <div class="column">
+      <label>Indexed <strong>{{totalIndexedPages}}</strong> new pages and
+        <strong>{{totalIndexedWords}}</strong> words.</label>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
 export interface AppStats {
-  totalIndexedPages: number;
-  totalIndexedWords: number;
+  totalPages: number;
+  totalWords: number;
 }

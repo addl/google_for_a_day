@@ -29,9 +29,10 @@ public class IndexRestController {
 	@RequestMapping(value = "/add/url", method = RequestMethod.POST)
 	public ResponseEntity<IndexerResponseDTO> addURL(
 			@Valid @RequestBody IndexerUrlDTO urlDto) {
-		UrlValidator urlValidator = new UrlValidator();
+		UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 		if(urlValidator.isValid(urlDto.getUrl())){
-			crawlerService.addLinks(urlDto.getUrl());
+			//crawlerService.addLinks(urlDto.getUrl());
+			crawlerService.addLinkAsynchronously(urlDto.getUrl());
 			IndexerResponseDTO response = new IndexerResponseDTO(null, HttpStatus.OK, false);
 			return new ResponseEntity<IndexerResponseDTO>(response, HttpStatus.OK);
 		}else{

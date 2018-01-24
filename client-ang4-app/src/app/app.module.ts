@@ -15,6 +15,7 @@ import {SearchBoxComponent} from './search-box/search-box.component';
 import {SearchService} from "./services/search.service";
 import {IndexService} from "./services/index.service";
 import { UrlInputBoxComponent } from './url-input-box/url-input-box.component';
+// import {CommonModule} from "@angular/common";
 
 const appRoutes:Routes = [
   {path: 'search', component: SearchComponent},
@@ -37,7 +38,7 @@ const appRoutes:Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    // CommonModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,

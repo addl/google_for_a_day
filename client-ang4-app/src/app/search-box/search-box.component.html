@@ -1,6 +1,14 @@
 <form class="ui form">
   <div class="field">
-    <input type="text" name="query" placeholder="Type your query" #query>
-    <button (click)="executeSearch(query)">Search</button>
+    <div class="fields">
+      <div class="twelve wide field">
+        <input type="text" name="query" placeholder="Type your query" #query/>
+      </div>
+      <div class="four wide field">
+        <button class="ui teal button" (click)="executeSearch(query)">
+          Search
+        </button>
+      </div>
+    </div>
   </div>
 </form>

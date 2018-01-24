@@ -1,7 +1,16 @@
 <form class="ui form">
   <div class="field">
-    <input type="text" name="query" placeholder="Type your query" #linkInput>
-    <button (click)="addNewLinkFunction(linkInput)">Index</button>
-    <button (click)="clearIndexFunction()">Clear</button>
+    <input type="text" name="query" placeholder="Type here the URL" #linkInput>
+  </div>
+  <div class="field">
+    <div class="equal width fields">
+      <div class="field">
+        <button class="ui fluid teal button" (click)="addNewLinkFunction(linkInput)">Index</button>
+      </div>
+      <div class="field">
+        <button class="ui fluid red button" (click)="clearIndexFunction()">Clear</button>
+      </div>
+    </div>
   </div>
 </form>
+
