@@ -1,4 +1,4 @@
-package indexer.api.server.crawler.queue;
+/*package indexer.api.server.crawler.queue;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -61,3 +61,4 @@ public class QueueSetTests {
 	}
 
 }
+*/

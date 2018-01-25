@@ -90,9 +90,9 @@ Let's compile the source code to execute the Server API. Move into directory 'se
 mvn package 
 ```
 
-Wait, when finish, move into directory 'server_app/target' and execute the file 'server_app.0.0.1-SNAPSHOT.jar', run:
+Wait, when finish, move into directory 'server_app/target' and execute the file 'server_app-0.0.1-SNAPSHOT.jar', run:
 
-```java -jar server_app.0.0.1-SNAPSHOT.jar```
+```java -jar server_app-0.0.1-SNAPSHOT.jar```
 
 If everything is fine, you will see a banner with SpringBoot. Finally open your browser on [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
