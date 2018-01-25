@@ -9,12 +9,12 @@ import {AppComponent} from './app.component';
 import {SearchComponent} from './search/search.component';
 import {IndexerComponent} from './indexer/indexer.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {SearchResultListComponent} from './search-result-list/search-result-list.component';
-import {SearchItemResultComponent} from './search-item-result/search-item-result.component';
-import {SearchBoxComponent} from './search-box/search-box.component';
+import {SearchResultListComponent} from './search/search-result-list/search-result-list.component';
+import {SearchItemResultComponent} from './search/search-result-list/search-item-result/search-item-result.component';
+import {SearchBoxComponent} from './search/search-box/search-box.component';
 import {SearchService} from "./services/search.service";
 import {IndexService} from "./services/index.service";
-import { UrlInputBoxComponent } from './url-input-box/url-input-box.component';
+import { UrlInputBoxComponent } from './indexer/url-input-box/url-input-box.component';
 // import {CommonModule} from "@angular/common";
 
 const appRoutes:Routes = [

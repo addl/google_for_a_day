@@ -15,15 +15,11 @@ You will need PostgreSQL 9.6
 
 To install PostgreSQL run the following command:
 
-```
-sudo apt-get install postgresql-9.6 postgresql-client-9.6 
-```
+```sudo apt-get install postgresql-9.6 postgresql-client-9.6 ```
 
 Configure an user for use PostgreSQL, create a new Unix user with name 'safety_user' and password: 'safety_pass'. It is the default configuration for the Api Server.
 
-```
-sudo createuser safety_user
-```
+```sudo createuser safety_user```
 
 Fill out the information. Then authenticate as user 'postgres':
 
@@ -31,35 +27,38 @@ Fill out the information. Then authenticate as user 'postgres':
 su postgres
 ```
 
+Create an user PostgreSQL:
+```createuser --pwprompt```
+
+1. At the Enter name of role to add: prompt, type the 'safety_user'.
+
+2. At the Enter password for new role: prompt, type 'safety_pass'.
+
+3. At the Enter it again: prompt, retype the password.
+
+5. Answer every question with No. Type n everytime.
+
 Create a database with name 'google_for_a_day' and stablish as owner 'safety_user'. As 'postgres' user run:
 
-```
-createdb -O safety_user google_for_a_day
-```
+```createdb -O safety_user google_for_a_day```
 
 You will need load an schema from the google_for_a_day.sql file located inside 'server_app' directory. So make sure your are inside the folder containing the sql file and run:
 
-```
-psql -d google_for_a_day -a -f google_for_a_day.sql
-```
+```psql -d google_for_a_day -a -f google_for_a_day.sql```
 
-If no error, the database is already configured.
+If no error, the database is already configured. More info to configure PostgreSQL [here](https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line)
 
 ##### Set up Java
 You you will need Java 1.8+ or OpenJDK 1.8
 
 In order to install java on Ubuntu or Debian you can run:
 
-```
-sudo apt-get install openjdk-8-jdk openjdk-8-jre-headless
-```
+```sudo apt-get install openjdk-8-jdk openjdk-8-jre-headless```
 
 ##### Set up Maven
 Install maven from Unix repositories, run:
 
-```
-sudo apt-get install maven
-```
+```sudo apt-get install maven```
 
 More details [here](https://www.mkyong.com/maven/how-to-install-maven-in-ubuntu/)
 
@@ -86,9 +85,7 @@ That will install @angular-cli and will install a new command 'ng', that we'll u
 #### Compiling the Server API
 Let's compile the source code to execute the Server API. Move into directory 'server_app/' and run:
 
-```
-mvn package 
-```
+```mvn package```
 
 Wait, when finish, move into directory 'server_app/target' and execute the file 'server_app-0.0.1-SNAPSHOT.jar', run:
 

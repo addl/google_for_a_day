@@ -15,7 +15,7 @@ nav {
   text-align: center;
 }
 
-app-search, app-indexer{
+app-search, app-indexer, app-page-not-found {
   width: 100%;
 }
 
