@@ -106,6 +106,10 @@ public class DatabaseIndexer implements BaseIndexer {
 				}
 			}			
 		}
+		/*To prevent SQL Constraints violations*/
+		if(result.length() > 254){
+			return result.substring(254);
+		}
 		return result.toString();
 	}
 

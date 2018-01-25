@@ -197,7 +197,12 @@ public class Crawler {
 	}
 	
 	public void resetCrawler(){
-		while (!processing) {
+		if(processing){
+			while (!processing) {
+				this.processedLinks.clear();
+				this.linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
+			}
+		}else{
 			this.processedLinks.clear();
 			this.linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
 		}

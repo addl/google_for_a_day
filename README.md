@@ -1,12 +1,59 @@
 # Google For A Day
 
-One Paragraph of project description goes here
+A simple prototype to crawl the WWW. Make your own modifications and don't hesitate to share it with us.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
+1. For the Server API
+
+Set up database
+You will need PostgreSQL 9.6
+
+To install PostgreSQL run the following command:
+
+```
+sudo apt-get install postgresql-9.6 postgresql-client-9.6 
+```
+
+Configure an user for use PostgreSQL, create a new Unix user with name 'safety_user' and password: 'safety_pass'. It is the default configuration for the Api Server.
+
+```
+sudo createuser safety_user
+```
+Fill out the information. Then create the database schema, authenticate as user 'postgres':
+
+```
+su postgres
+```
+
+Create a database with name 'google_for_a_day' and stablish as owner 'safety_user'. As 'postgres' user run:
+
+```
+createdb -O safety_user google_for_a_day
+```
+
+
+Set up Java
+You you will need Java 1.8+ or OpenJDK 1.8
+
+In order to install java on Ubuntu or Debian you can run:
+
+```
+sudo apt-get install openjdk-8-jdk openjdk-8-jre-headless
+```
+
+
+2. For the Client Angular 4 project
+
+Node.js and npm are essential to Angular development.
+
+[Get it](https://nodejs.org/download/release/) now if it's not already installed on your machine.
+Verify that you are running at least node v4.x.x and npm 3.x.x by running node -v and npm -v in a terminal/console window. Older versions produce errors.
+
+We recommend nvm for managing multiple versions of node and npm.
 
 What things you need to install the software and how to install them
 

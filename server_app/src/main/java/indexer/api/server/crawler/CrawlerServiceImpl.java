@@ -43,21 +43,30 @@ public class CrawlerServiceImpl implements CrawlerService {
 	}
 
 	/* (non-Javadoc)
+	 * @see indexer.api.server.crawler.CrawlerService#resetCrawler()
+	 */
+	@Override
+	public void resetCrawler() {		
+		taskExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				logger.debug("Resetting crawler");
+				try {
+					crawler.resetCrawler();
+				} catch (Exception e) {
+					logger.error("Can't reset crawler, Error: {}", e.getMessage());
+				}
+			}
+		});
+	}
+	
+	/* (non-Javadoc)
 	 * @see indexer.api.server.crawler.CrawlerService#addLinks(java.lang.String)
 	 */
 	@Override
 	public void addLinks(String link) throws UrlBadFormatException {
 		logger.debug("Adding a new URL to crawler, URL: " + link);
 		crawler.addLink(link, 0);
-	}
-
-	/* (non-Javadoc)
-	 * @see indexer.api.server.crawler.CrawlerService#resetCrawler()
-	 */
-	@Override
-	public void resetCrawler() {
-		logger.debug("Resetting crawler");
-		crawler.resetCrawler();
 	}
 
 }
