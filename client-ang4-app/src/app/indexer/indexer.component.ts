@@ -14,7 +14,8 @@ export class IndexerComponent implements OnInit {
   private totalIndexedWords;
 
   constructor(private indexService:IndexService) {
-
+    this.totalIndexedPages = 0;
+    this.totalIndexedWords = 0;
   }
 
   ngOnInit() {
