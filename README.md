@@ -1,6 +1,6 @@
 # Google For A Day
 
-A simple prototype to crawl the WWW. Make your own modifications and don't hesitate to share it with us.
+A simple prototype to emulate a Google Search Engine. Make your own modifications and don't hesitate to share it with us.
 
 ## Getting Started
 
@@ -102,7 +102,7 @@ Move into Client API directory 'client-ang4-app/' and execute:
 
 ```ng server```
 
-Wait for a moment, if a successful message is shown, open your browser with the url [http://127.0.0.1:4200](http://127.0.0.1:4200).
+Wait for a moment, if a successful message is shown, open your browser at [http://127.0.0.1:4200](http://127.0.0.1:4200).
 
 ## Running the tests
 
