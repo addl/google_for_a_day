@@ -11,7 +11,8 @@ These instructions will get you a copy of the project up and running on your loc
 #### For the Server API
 
 ##### Set up database
-You will need PostgreSQL 9.6
+You will need PostgreSQL 9.6. 
+The following steps are for Unix System. If you are a Window's user see [this guide](https://confluence.atlassian.com/display/CONF30/Database+Setup+for+PostgreSQL+on+Windows)
 
 To install PostgreSQL run the following command:
 
@@ -49,14 +50,17 @@ You will need load an schema from the google_for_a_day.sql file located inside '
 If no error, the database is already configured. More info to configure PostgreSQL [here](https://www.a2hosting.com/kb/developer-corner/postgresql/managing-postgresql-databases-and-users-from-the-command-line)
 
 ##### Set up Java
-You you will need Java 1.8+ or OpenJDK 1.8
+You you will need Java 1.8+ or OpenJDK 1.8. For Windows you can download the installer [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
 In order to install java on Ubuntu or Debian you can run:
 
 ```sudo apt-get install openjdk-8-jdk openjdk-8-jre-headless```
 
 ##### Set up Maven
-Install maven from Unix repositories, run:
+Again, if your are on Microsoft Windows OS, [here](https://maven.apache.org/guides/getting-started/windows-prerequisites.html) there is a complete guide. 
+You will need the maven package[download](http://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.zip).
+
+On Unix, Debian based distributions, run:
 
 ```sudo apt-get install maven```
 
@@ -67,14 +71,19 @@ Make sure maven is inst correctly, run 'mvn -version'
 
 #### For the Client Angular 4 project
 
-Node.js and npm are essential to Angular development.
+Node.js and npm are essential to Angular development. 
 
-[Get it](https://nodejs.org/download/release/) now if it's not already installed on your machine.
-Verify that you are running at least node v7.x.x and npm 4.x.x by running node -v and npm -v in a terminal/console window. Older versions may produce errors.
+[Get it](https://nodejs.org/download/release/) now if it's not already installed on your machine. The system was developed with Node v7.x.x.
+So verify that you are running at least node v7.x.x and npm 4.x.x by running node -v and npm -v in a terminal/console window. Older versions may produce errors.
+For Window there is an installer [here](https://nodejs.org/en/download/).
+
+For Linux you can install NodeJs from repositories, executing this command:
+
+```sudo apt-get install nodejs```
 
 We recommend nvm for managing multiple versions of node and npm.
 
-Move into Client API directory 'client-ang4-app/' and install node dependencies:
+Now, with NodeJs installed, move into Client API directory 'client-ang4-app/' and install node dependencies:
 
 ```npm install```
 

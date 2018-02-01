@@ -197,15 +197,11 @@ public class Crawler {
 	}
 	
 	public void resetCrawler(){
-		if(processing){
-			while (!processing) {
-				this.processedLinks.clear();
-				this.linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
-			}
-		}else{
-			this.processedLinks.clear();
-			this.linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());
-		}
+        while (processing) {
+            logger.debug("Waiting for a job finished");
+        }		
+        this.processedLinks.clear();
+        this.linksQueue = new QueueSet(crawlerProperties.getMaximumDeepLevel());		
 	}
 	
 	/** Verify if an url is correctly formatted
