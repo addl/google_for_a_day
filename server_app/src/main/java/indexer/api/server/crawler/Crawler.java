@@ -152,7 +152,7 @@ public class Crawler {
 		for (String newlink : subUrls) {
 			if (!processedLinks.contains(newlink)) {
 				logger.debug("Adding new link in order to process it: {}", newlink);				
-				this.addLink(newlink, currentDeepLevel);
+				linksQueue.add(new Link(newlink, currentDeepLevel));
 			}else{
 				logger.debug("Ignoring URL: {}, it was already processed", newlink);
 			}
@@ -173,7 +173,8 @@ public class Crawler {
 			connection = new URL(url).openConnection();
 			text = new Scanner(connection.getInputStream()).useDelimiter("\\Z").next();		
 		} catch (IOException e) {
-			logger.info("Can't connect to: {}, Eception message is: {}", url, e.getMessage());
+			logger.error("***** Can't connect to: {}, Eception message is: {}", url, e.getMessage());
+			logger.info("***** Can't connect to: {}, Eception message is: {}", url, e.getMessage());
 		}		
 		return text;
 	}
